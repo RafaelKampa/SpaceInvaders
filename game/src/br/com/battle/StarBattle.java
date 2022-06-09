@@ -15,6 +15,7 @@ public class StarBattle implements Steps {
 
 	@Override
 	public void load() {
+		GameManager.getInstance().add(new Background(0, 0));
 //		var ship = new Ship();
 		GameManager.getInstance().add(new Ship());
 //		GameManager.getInstance().add(new DebugRectangle(ship, Color.BLUE));
@@ -40,6 +41,7 @@ public class StarBattle implements Steps {
 	public void draw(Graphics2D g2d) {
 		g2d.setColor(Color.BLACK);
 		g2d.fillRect(0, 0, 800, 600);
+//		new Background(0,0);
 //		GameManager.getInstance().add(new Background(0, 0));
 	}
 

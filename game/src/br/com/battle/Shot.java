@@ -17,7 +17,7 @@ public class Shot extends GameObject {
 
     @Override
     public boolean isInGame() {
-        return y > -50 && isAlive;
+        return y > 10 && isAlive;
     }
     
     @Override

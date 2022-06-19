@@ -1,17 +1,27 @@
 package br.com.battle;
 
+import static java.awt.event.KeyEvent.VK_DOWN;
+import static java.awt.event.KeyEvent.VK_LEFT;
+import static java.awt.event.KeyEvent.VK_RIGHT;
+import static java.awt.event.KeyEvent.VK_SPACE;
+import static java.awt.event.KeyEvent.VK_UP;
+
 import br.pucpr.jge.AbstractGameObject;
 import br.pucpr.jge.GameManager;
 import br.pucpr.jge.GameObject;
 import br.pucpr.jge.InputManager;
 
-import static java.awt.event.KeyEvent.*;
-
 public class Ship extends GameObject {
 	private double shotInterval = 0.3;
 	public boolean isAlive = true;
-
-	public Ship() {
+	public int cont = 3;
+	public int[] contLife = new int[3];
+	public Life life0 = new Life(0, 600);
+	public Life life1 = new Life(55, 600);
+	public Life life2 = new Life(110, 600);
+//	public Boss boss = new Boss(250, 0);
+	
+	public Ship(double y) {
 		super("/image/intruder.png", 375, 550);
 	}
 
@@ -26,7 +36,7 @@ public class Ship extends GameObject {
 				x -= 400 * s;
 			}
 		} else if (keys.isDown(VK_UP)) {
-			if (y > 0) {
+			if (y > 50) {
 				y -= 400 * s;
 			}
 		} else if (keys.isDown(VK_DOWN)) {
@@ -40,6 +50,16 @@ public class Ship extends GameObject {
 			GameManager.getInstance().add(shot);
 			shotInterval = 0;
 		}
+
+		GameManager.getInstance().add(life0);
+		GameManager.getInstance().add(life1);
+		GameManager.getInstance().add(life2);
+		contLife[0] = 1;
+		contLife[1] = 2;
+		contLife[2] = 3;
+//		if (ContadorAlien.getCont() == 0) {
+//			GameManager.getInstance().add(boss);
+//		}
 	}
 	
 	@Override
@@ -50,13 +70,39 @@ public class Ship extends GameObject {
 	@Override
 	public void onCollision(AbstractGameObject obj) {
 		if (obj instanceof AlienShot) {
-			isAlive = false;
-			GameManager.getInstance().add(new Explosion(this.getX(), this.getY()));
-			
+			this.cont = cont - 1;
+			if (this.contLife[this.cont] == 3) {
+				this.contLife[this.cont] = 0;
+				life2.isAlive = false;
+			} else if (this.contLife[this.cont] == 2) {
+				this.contLife[this.cont] = 0;
+				life1.isAlive = false;
+			} else {
+				this.contLife[this.cont] = 0;
+				life0.isAlive = false;
+			}
+			if (life0.isAlive == false) {
+				isAlive = false;
+				GameManager.getInstance().add(new Explosion(this.getX(), this.getY()));
+			}
 		}
+		
 		if (obj instanceof Alien) {
-			isAlive = false;
-			GameManager.getInstance().add(new Explosion(this.getX(), this.getY()));
+			this.cont = cont - 1;
+			if (this.contLife[this.cont] == 3) {
+				this.contLife[this.cont] = 0;
+				life2.isAlive = false;
+			} else if (this.contLife[this.cont] == 2) {
+				this.contLife[this.cont] = 0;
+				life1.isAlive = false;
+			} else {
+				this.contLife[this.cont] = 0;
+				life0.isAlive = false;
+			}
+			if (life0.isAlive == false) {
+				isAlive = false;
+				GameManager.getInstance().add(new Explosion(this.getX(), this.getY()));
+			}
 		}
 	}
 }

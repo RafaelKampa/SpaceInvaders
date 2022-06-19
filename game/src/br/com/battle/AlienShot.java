@@ -17,7 +17,7 @@ public class AlienShot extends GameObject {
 
     @Override
     public boolean isInGame() {
-        return y > 0 && isAlive;
+        return y < 590 && isAlive;
     }
     
     @Override

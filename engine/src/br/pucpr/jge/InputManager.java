@@ -26,4 +26,11 @@ public class InputManager {
 			}
 		};
 	}
+
+	public boolean isDown(boolean b) {
+		if (b == true) {
+			return true;
+		}
+		return false;
+	}
 }

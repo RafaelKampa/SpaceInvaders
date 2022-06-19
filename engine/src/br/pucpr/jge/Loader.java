@@ -1,8 +1,8 @@
 package br.pucpr.jge;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 public class Loader {
     private String root;
@@ -29,7 +29,12 @@ public class Loader {
     public BufferedImage loadImage(String path) {
         var name = root + path;
         try {
-            return ImageIO.read(getClass().getResourceAsStream(name));
+            var image = ImageIO.read(getClass().getResourceAsStream(name));
+            if (GameManager.getInstance().imagesLoaded.containsKey(name)){
+                return (BufferedImage) GameManager.getInstance().imagesLoaded.get(name);
+            }
+            GameManager.getInstance().imagesLoaded.put(name, image);
+            return (BufferedImage) GameManager.getInstance().imagesLoaded.get(name);
         } catch (Exception e) {
             System.err.println("Unable to load " + name);
             return createErrorImage();

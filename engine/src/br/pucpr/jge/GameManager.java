@@ -1,13 +1,17 @@
 package br.pucpr.jge;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GameManager {
 	private static final GameManager instance = new GameManager();
-	private List<AbstractGameObject> objects = new ArrayList<>();
+	public List<AbstractGameObject> objects = new ArrayList<>();
 	private List<AbstractGameObject> newObjects = new ArrayList<>();
+	Map<String, BufferedImage> imagesLoaded = new HashMap<>();
 	
 	private GameManager() {
 	}
@@ -26,7 +30,7 @@ public class GameManager {
 		newObjects.add(obj);
 		return this;
 	}
-
+	
 	void update(double s, InputManager keys) {
 		var it = objects.iterator();
 		while (it.hasNext()) {
@@ -59,4 +63,5 @@ public class GameManager {
 			}
 		}
 	}
+
 }

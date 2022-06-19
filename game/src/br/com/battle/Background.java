@@ -10,14 +10,14 @@ import java.awt.image.BufferedImage;
 public class Background extends GameObject {
 
 
-	public int frames = 0, maxFrames = 10, index = 0, maxIndex = 200;
+	public int frames = 0, maxFrames = 5, index = 0, maxIndex = 240;
 	private BufferedImage[] background;
 	public SpriteSheet spriteSheet;
 
 	public Background(double x, double y) {
 		super("/image/space.png", x, y);
 		spriteSheet = new SpriteSheet("/image/space.png");
-		background = new BufferedImage[200];
+		background = new BufferedImage[240];
 		y = 0;
 		for (int i = 0; i < background.length; i++){
 			background[i] = spriteSheet.getSprite(0,(int) y, 800, 600);

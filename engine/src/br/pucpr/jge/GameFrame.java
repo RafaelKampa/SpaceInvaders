@@ -48,6 +48,7 @@ public class GameFrame extends JFrame {
                 var g2d = (Graphics2D) getBufferStrategy().getDrawGraphics();
                 game.draw(g2d);
                 manager.draw(g2d);
+                game.draw2(g2d);
 
                 if (!getBufferStrategy().contentsLost()) {
                     getBufferStrategy().show();

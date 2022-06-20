@@ -4,8 +4,6 @@ import br.pucpr.jge.AbstractGameObject;
 import br.pucpr.jge.GameObject;
 import br.pucpr.jge.InputManager;
 
-import java.util.TimerTask;
-
 public class PowerUp extends GameObject {
 	public boolean isAlive = true;
 

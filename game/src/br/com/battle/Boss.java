@@ -11,7 +11,7 @@ import br.pucpr.jge.Listener;
 public class Boss extends GameObject{
 	private double initialX;
 	private double t;
-	private boolean isAlive = true;
+	protected boolean isAlive = true;
 	public double shotInterval = 0.5;
 	public int cont;
 	private int lifes = 30;
@@ -22,7 +22,7 @@ public class Boss extends GameObject{
 	}
 
 	public void update(double s, InputManager keys) {
-		if (y < 0 ) { 
+		if (y < 0) { 
 			y += 30 * s;
 		} else {
 			y = 0;

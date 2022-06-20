@@ -8,4 +8,5 @@ public interface Steps {
     boolean update(double s, InputManager keys);
     void draw(Graphics2D g2d) throws FontFormatException, IOException;
     void unload();
+    void draw2(Graphics2D g2d) throws FontFormatException, IOException;
 }

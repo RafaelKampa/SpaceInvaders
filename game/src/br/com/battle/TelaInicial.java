@@ -33,10 +33,8 @@ public class TelaInicial implements Steps{
     public void draw(Graphics2D g2d) throws FontFormatException, IOException {
 		g2d.setColor(Color.BLACK);
 		g2d.fillRect(0, 0, 800, 650);
-		Font titulo = Font.createFont(Font.TRUETYPE_FONT, new File("game/src/br/com/battle/PressStart2P.ttf"));
-		var tituloFont = titulo.deriveFont(Font.PLAIN, 30f);
-		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		ge.registerFont(tituloFont);
+		Font font = Font.createFont(Font.TRUETYPE_FONT, new File("src/br/com/battle/PressStart2P.ttf"));
+		var tituloFont = font.deriveFont(Font.PLAIN, 30f);
 		g2d.setFont(tituloFont);
 
 		Color startColor = Color.CYAN;
@@ -46,23 +44,23 @@ public class TelaInicial implements Steps{
 		g2d.drawString("MUTRETAS ESTELARES", 130, 300);
 
 
-		Font continuar = Font.createFont(Font.TRUETYPE_FONT, new File("game/src/br/com/battle/PressStart2P.ttf"));
-		var continuarFont = continuar.deriveFont(Font.PLAIN, 12f);
-		ge.registerFont(continuarFont);
+		var continuarFont = font.deriveFont(Font.PLAIN, 15f);
 		g2d.setFont(continuarFont);
 		Color startColor2 = Color.RED;
 		Color endColor2 = Color.CYAN;
 		GradientPaint gradient2 = new GradientPaint(300, 300, startColor2, 500, 400, endColor2);
 		g2d.setPaint(gradient2);
-		g2d.drawString("Pressione ESPAÃ‡O para iniciar ou ESC para encerrar", 95, 400);
+		g2d.drawString("Pressione ESPAÇO ou ESC para continuar", 115, 400);
 
-		Font rodape = Font.createFont(Font.TRUETYPE_FONT, new File("game/src/br/com/battle/PressStart2P.ttf"));
-		var rodapeFont = rodape.deriveFont(Font.PLAIN, 10f);
-		ge.registerFont(rodapeFont);
+		var rodapeFont = font.deriveFont(Font.PLAIN, 10f);
 		g2d.setFont(rodapeFont);
 		g2d.setColor(Color.GRAY);
 		g2d.drawString("Desenvolvido por: Lucas Pego de Souza e Rafael Gilberto Kampa", 100, 630);
     }
+    
+	@Override
+	public void draw2(Graphics2D g2d) throws FontFormatException, IOException {
+	}
 
 	@Override
 	public void unload() {

@@ -43,7 +43,7 @@ public class TelaInicial implements Steps{
 		Color endColor = Color.RED;
 		GradientPaint gradient = new GradientPaint(250, 280, startColor, 500, 300, endColor);
 		g2d.setPaint(gradient);
-		g2d.drawString("TRETAS ESTELARES", 150, 300);
+		g2d.drawString("MUTRETAS ESTELARES", 130, 300);
 
 
 		Font continuar = Font.createFont(Font.TRUETYPE_FONT, new File("game/src/br/com/battle/PressStart2P.ttf"));
@@ -54,7 +54,7 @@ public class TelaInicial implements Steps{
 		Color endColor2 = Color.CYAN;
 		GradientPaint gradient2 = new GradientPaint(300, 300, startColor2, 500, 400, endColor2);
 		g2d.setPaint(gradient2);
-		g2d.drawString("Pressione ESPAÇO ou ESC para continuar", 115, 400);
+		g2d.drawString("Pressione ESPAÃ‡O ou ESC para continuar", 115, 400);
 
 		Font rodape = Font.createFont(Font.TRUETYPE_FONT, new File("game/src/br/com/battle/PressStart2P.ttf"));
 		var rodapeFont = rodape.deriveFont(Font.PLAIN, 10f);

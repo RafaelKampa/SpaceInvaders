@@ -1,14 +1,9 @@
 package br.com.battle;
 
 import static java.awt.event.KeyEvent.VK_ESCAPE;
-//Desenvolvido por: Rafael Gilberto Kampa e Lucas Pego de Souza
 
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
+
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -16,7 +11,7 @@ import br.pucpr.jge.GameFrame;
 import br.pucpr.jge.GameManager;
 import br.pucpr.jge.InputManager;
 import br.pucpr.jge.Steps;
-
+//Desenvolvido por: Rafael Gilberto Kampa e Lucas Pego de Souza
 public class StarBattle implements Steps{
     ScoreListener score = new ScoreListener();
 	
@@ -39,32 +34,36 @@ public class StarBattle implements Steps{
 //		A linha abaixo está comentada pois é utilizada apenas para visualizar o quadrado de debug para o hitBox
 //		para visualizá-la é necessário comentar a linha que instancia a nave e descomentar a linha abaixo.
 //		GameManager.getInstance().add(new DebugRectangle(new Ship(500), Color.BLUE));
-		GameManager.getInstance().add(new Boss(250, -1000));
+		GameManager.getInstance().add(new Boss(250, -800));
 	}
-	
 
 	@Override
 	public boolean update(double s, InputManager keys) {
-		return !keys.isDown(VK_ESCAPE);
-		
+		if (keys.isDown(VK_ESCAPE)) {
+			return false;
+		}
+		return true;
 	}
 
     @Override
     public void draw(Graphics2D g2d) throws FontFormatException, IOException {
-    	g2d.setColor(Color.CYAN);
-    	g2d.fillRect(0, 600, 800, 50);
-        g2d.setColor(Color.BLACK);
-    	Font f = Font.createFont(Font.TRUETYPE_FONT, new File("src/br/com/battle/PressStart2P.ttf"));
-        var font = f.deriveFont(Font.PLAIN, 40f);
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        ge.registerFont(font);
-        
-        g2d.fillRect(0, 0, 800, 600);
-        g2d.setColor(Color.BLACK);
-        g2d.setFont(font);
-        g2d.drawString(String.format("%05d", score.scorePoints), 600, 650);
+		Color startColor = Color.CYAN;
+		Color endColor = Color.RED;
+		GradientPaint gradient = new GradientPaint(0, 0, startColor, 800, 50, endColor);
+		g2d.setPaint(gradient);
+		g2d.fillRect(0, 600, 800, 50);
+		g2d.setColor(Color.BLACK);
+		Font f = Font.createFont(Font.TRUETYPE_FONT, new File("game/src/br/com/battle/PressStart2P.ttf"));
+		var font = f.deriveFont(Font.PLAIN, 40f);
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		ge.registerFont(font);
+
+		g2d.fillRect(0, 0, 800, 600);
+		g2d.setColor(Color.BLACK);
+		g2d.setFont(font);
+		g2d.drawString(String.format("%05d", score.scorePoints), 600, 650);
     }
-	
+
     public void loadFont() {
     }
 
@@ -73,6 +72,6 @@ public class StarBattle implements Steps{
 	}
 
 	public static void main(String[] args) {
-		EventQueue.invokeLater(() -> new GameFrame("Star Battle", 800, 650, new StarBattle()).setVisible(true));
+		EventQueue.invokeLater(() -> new GameFrame("Tretas Estelares", 800, 650, new TelaInicial()).setVisible(true));
 	}
 }

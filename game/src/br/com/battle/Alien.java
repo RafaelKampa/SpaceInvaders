@@ -19,7 +19,6 @@ public class Alien extends GameObject {
 	public Alien(double x, double y) {
 		super("/image/tieFighter.png", x, y);
 		this.initialX = x;
-		ContadorAlien.setCont(ContadorAlien.getCont() + 1);
 	}
 
 	public void update(double s, InputManager keys) {
@@ -43,6 +42,21 @@ public class Alien extends GameObject {
 				}
 			}
 		}
+		cont ++;
+		if (this.powerUpGenerator(isAlive) == true) {
+			GameManager.getInstance().add(new PowerUp(getX() + 37.5, getY() + 37.5));
+		}
+	}
+
+	public boolean powerUpGenerator(boolean isAlive) {
+		if (isAlive == false) {
+			Random random = new Random();
+			var rdn = random.nextInt(5);
+			if (rdn == 1) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -54,10 +68,7 @@ public class Alien extends GameObject {
 	public void onCollision(AbstractGameObject obj) {
 		if (obj instanceof Shot || obj instanceof Ship) {
 			isAlive = false;
-		}
-		if (isAlive == false) {
 			notifyObserver();
-			ContadorAlien.setCont(ContadorAlien.getCont() - 1);
 			GameManager.getInstance().add(new Explosion(this.getX(), this.getY()));
 		}
 	}

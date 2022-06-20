@@ -8,6 +8,7 @@ import static java.awt.event.KeyEvent.VK_UP;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimerTask;
 
 import br.pucpr.jge.AbstractGameObject;
 import br.pucpr.jge.GameManager;
@@ -24,13 +25,27 @@ public class Ship extends GameObject {
 	public Life life1 = new Life(55, 600);
 	public Life life2 = new Life(110, 600);
 	public static final List<Listener> listeners = new ArrayList<Listener>();
+	public boolean hasPowerUp;
+
 	
 	public Ship(double y) {
 		super("/image/xWing.png", 345, 550);
 	}
 
 	public void update(double s, InputManager keys) {
-		shotInterval += s*2;
+		if (hasPowerUp == false){
+			shotInterval += s;
+		}
+		if (hasPowerUp == true){
+			shotInterval += s * 4;
+			//Contador de tempo para cortar o powerUp após 5 segundos
+			new java.util.Timer().schedule(new TimerTask() {
+				@Override
+				public void run() {
+					hasPowerUp = false;
+				}
+			}, 5000);
+		}
 		if (keys.isDown(VK_RIGHT)) {
 			if (x < 680) {
 				x += 400 * s;
@@ -52,20 +67,20 @@ public class Ship extends GameObject {
 		if (keys.isDown(VK_SPACE) && shotInterval > 0.3) {
 			var shot = new Shot(getX() + 52.5, getY() - 40);
 			GameManager.getInstance().add(shot);
-			shotInterval = 0;
+			this.shotInterval = 0;
 		}
 
-		GameManager.getInstance().add(life0);
-		GameManager.getInstance().add(life1);
-		GameManager.getInstance().add(life2);
-		contLife[0] = 1;
-		contLife[1] = 2;
-		contLife[2] = 3;
+		GameManager.getInstance().add(this.life0);
+		GameManager.getInstance().add(this.life1);
+		GameManager.getInstance().add(this.life2);
+		this.contLife[0] = 1;
+		this.contLife[1] = 2;
+		this.contLife[2] = 3;
 	}
 	
 	@Override
 	public boolean isInGame() {
-		return isAlive;
+		return this.isAlive;
 	}
 
 	@Override
@@ -83,9 +98,12 @@ public class Ship extends GameObject {
 				life0.isAlive = false;
 			}
 			if (life0.isAlive == false) {
-				isAlive = false;
+				this.isAlive = false;
 				GameManager.getInstance().add(new Explosion(this.getX() + 25, this.getY()));
 			}
+		}
+		if (obj instanceof PowerUp) {
+			this.hasPowerUp = true;
 		}
 	}
 }

@@ -47,14 +47,14 @@ public class TelaInicial implements Steps{
 
 
 		Font continuar = Font.createFont(Font.TRUETYPE_FONT, new File("game/src/br/com/battle/PressStart2P.ttf"));
-		var continuarFont = continuar.deriveFont(Font.PLAIN, 15f);
+		var continuarFont = continuar.deriveFont(Font.PLAIN, 12f);
 		ge.registerFont(continuarFont);
 		g2d.setFont(continuarFont);
 		Color startColor2 = Color.RED;
 		Color endColor2 = Color.CYAN;
 		GradientPaint gradient2 = new GradientPaint(300, 300, startColor2, 500, 400, endColor2);
 		g2d.setPaint(gradient2);
-		g2d.drawString("Pressione ESPAÇO ou ESC para continuar", 115, 400);
+		g2d.drawString("Pressione ESPAÇO para iniciar ou ESC para encerrar", 95, 400);
 
 		Font rodape = Font.createFont(Font.TRUETYPE_FONT, new File("game/src/br/com/battle/PressStart2P.ttf"));
 		var rodapeFont = rodape.deriveFont(Font.PLAIN, 10f);

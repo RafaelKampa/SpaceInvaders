@@ -25,6 +25,9 @@ public class Shot extends GameObject {
     	if (obj instanceof Alien) {
     		isAlive = false;
 		}
+    	if (obj instanceof Boss) {
+    		isAlive = false;
+		}
     }
     
 

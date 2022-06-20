@@ -38,7 +38,7 @@ public class DebugRectangle implements AbstractGameObject{
 	public void load() {
 		obj.load();
 	}
-
+	
 	@Override
 	public void update(double s, InputManager keys) {
 		obj.update(s, keys);		

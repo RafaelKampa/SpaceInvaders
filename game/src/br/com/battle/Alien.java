@@ -6,6 +6,7 @@ import br.pucpr.jge.AbstractGameObject;
 import br.pucpr.jge.GameManager;
 import br.pucpr.jge.GameObject;
 import br.pucpr.jge.InputManager;
+import br.pucpr.jge.Listener;
 
 public class Alien extends GameObject {
 	private double initialX;
@@ -14,8 +15,9 @@ public class Alien extends GameObject {
 	public double shotInterval = 0.5;
 	public int cont;
 
+
 	public Alien(double x, double y) {
-		super("/image/destroyer.png", x, y);
+		super("/image/tieFighter.png", x, y);
 		this.initialX = x;
 		ContadorAlien.setCont(ContadorAlien.getCont() + 1);
 	}
@@ -28,7 +30,7 @@ public class Alien extends GameObject {
 		}
 		x = initialX + Math.sin(t) * 50;
 		t += s;
-		var alienShot = new AlienShot(getX() + 25, getY());
+		var alienShot = new AlienShot(getX() + 37.5, getY() + 37.5);
 		cont ++;
 		if (y > 0) {
 			if (cont >= 120) {
@@ -50,16 +52,27 @@ public class Alien extends GameObject {
 	
 	@Override
 	public void onCollision(AbstractGameObject obj) {
-		if (obj instanceof Shot) {
-			Score2.setScore(Score2.getScore() + 100);
-			ContadorAlien.setCont(ContadorAlien.getCont() - 1);
+		if (obj instanceof Shot || obj instanceof Ship) {
 			isAlive = false;
-			GameManager.getInstance().add(new Explosion(this.getX(), this.getY()));
-			
 		}
-		if (obj instanceof Ship) {
-			isAlive = false;
+		if (isAlive == false) {
+			notifyObserver();
+			ContadorAlien.setCont(ContadorAlien.getCont() - 1);
 			GameManager.getInstance().add(new Explosion(this.getX(), this.getY()));
 		}
 	}
+	
+    private void notifyObserver() {
+        for (Listener listener : Ship.listeners) {
+            listener.notify(this);
+        }
+    }
+    
+    public void addObserver(Listener listener) {
+        Ship.listeners.add(listener);
+    }
+    
+    public void removerListener(Listener listener) {
+        Ship.listeners.remove(listener);
+    }
 }

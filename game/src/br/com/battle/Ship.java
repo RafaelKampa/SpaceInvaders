@@ -26,6 +26,7 @@ public class Ship extends GameObject {
 	public Life life2 = new Life(110, 600);
 	public static final List<Listener> listeners = new ArrayList<Listener>();
 	public boolean hasPowerUp;
+	public int powerUpTime;
 
 	
 	public Ship(double y) {
@@ -38,13 +39,13 @@ public class Ship extends GameObject {
 		}
 		if (hasPowerUp == true){
 			shotInterval += s * 4;
-			//Contador de tempo para cortar o powerUp após 5 segundos
+			//Contador de tempo para cortar o powerUp em 5 segundos
 			new java.util.Timer().schedule(new TimerTask() {
 				@Override
 				public void run() {
 					hasPowerUp = false;
 				}
-			}, 5000);
+			}, powerUpTime);
 		}
 		if (keys.isDown(VK_RIGHT)) {
 			if (x < 680) {
@@ -85,7 +86,7 @@ public class Ship extends GameObject {
 
 	@Override
 	public void onCollision(AbstractGameObject obj) {
-		if (obj instanceof AlienShot || obj instanceof Alien) {
+		if (obj instanceof AlienShot || obj instanceof Alien || obj instanceof Boss) {
 			this.cont = this.cont - 1;
 			if (this.contLife[this.cont] == 3) {
 				this.contLife[this.cont] = 0;
@@ -103,6 +104,7 @@ public class Ship extends GameObject {
 			}
 		}
 		if (obj instanceof PowerUp) {
+			this.powerUpTime = this.powerUpTime + 5000;
 			this.hasPowerUp = true;
 		}
 	}

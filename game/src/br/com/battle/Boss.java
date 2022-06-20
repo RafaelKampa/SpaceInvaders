@@ -22,7 +22,7 @@ public class Boss extends GameObject{
 	}
 
 	public void update(double s, InputManager keys) {
-		if (y <= 0 ) { 
+		if (y < 0 ) { 
 			y += 30 * s;
 		} else {
 			y = 0;
